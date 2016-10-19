@@ -10,7 +10,7 @@ module LabsLogo
       conneg.set :fallback, :html
       conneg.ignore_contents_of 'public'
       conneg.provide [
-        :html,
+        :svg,
         :json
       ]
     end

@@ -12,18 +12,25 @@ module LabsLogo
     end
 
     get '/' do
-      headers 'Vary' => 'Accept'
+      redirect '/logo'
+    end
+
+    get '/logo' do
+      num = rand(1..8)
+      image = "/assets/odilabs-#{num}.svg"
 
       respond_to do |wants|
         wants.html do
-          @content = '<h1>Hello from LabsLogo</h1>'
-          @title = 'LabsLogo'
           erb :index, layout: :default
+        end
+
+        wants.svg do
+          redirect image
         end
 
         wants.json do
           {
-            app: 'LabsLogo'
+            logo: image
           }.to_json
         end
       end
