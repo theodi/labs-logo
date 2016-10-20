@@ -17,7 +17,12 @@ module LabsLogo
 
     get '/logo' do
       num = rand(1..8)
-      image = "/assets/odilabs-#{num}.svg"
+      bg = params[:bg] || 'light'
+      if num == 8
+        image = "/assets/odilabs-#{num}-#{bg}.svg"
+      else
+        image = "/assets/odilabs-#{num}.svg"
+      end
 
       respond_to do |wants|
         wants.html do

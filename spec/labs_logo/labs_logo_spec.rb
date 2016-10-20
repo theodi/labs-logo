@@ -30,5 +30,23 @@ module LabsLogo
       json = JSON.parse last_response.body
       expect(json['logo']).to_not be_nil
     end
+
+    it 'returns the right image type for a dark background' do
+      allow_any_instance_of(Object).to receive(:rand) { 8 }
+      get '/logo.svg?bg=dark'
+      expect(last_response).to be_redirect
+      follow_redirect!
+
+      expect(last_request.url).to eq('http://example.org/assets/odilabs-8-dark.svg')
+    end
+
+    it 'defaults to a light background' do
+      allow_any_instance_of(Object).to receive(:rand) { 8 }
+      get '/logo.svg'
+      expect(last_response).to be_redirect
+      follow_redirect!
+
+      expect(last_request.url).to eq('http://example.org/assets/odilabs-8-light.svg')
+    end
   end
 end
